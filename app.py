@@ -41,21 +41,14 @@ def add_user_to_g():
         g.user = None
 
     if ADMIN_STATUS in session:
-        if session[ADMIN_STATUS] == True:
-            g.admin = True
-        else:
-            g.admin = False
+        g.admin = True
+    else:
+        g.admin = None
 
 def do_login(user):
     """Log in user."""
 
     session[CURR_USER_KEY] = user.id
-    check_admin(user)
-
-def check_admin(user):
-    """Checks admins status"""
-    session[ADMIN_STATUS] = False
-
     if user.is_admin == True:
         session[ADMIN_STATUS] = True
 
@@ -64,7 +57,7 @@ def do_logout():
 
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
-
+    
     if ADMIN_STATUS in session:
         del session[ADMIN_STATUS]
 
